@@ -1,0 +1,19 @@
+<article class="sidebar">
+            <h1 class="sidebar-title">Facts you wanna know?</h1>
+            <ul class="sidebar-body">
+              <li>Which country has won the most gold medals among countries that have hosted Olympics?</li>
+              <li>Who have won at least three gold medals in 2008?</li>
+              <li>Who have ever won 100m and 200m Dash Gold in one Olympic Game?</li>
+            </ul>
+          </article><!-- article -->
+
+          <article class="sidebar">
+            <h1 class="sidebar-title">Highlighted</h1>
+            <div class="pixgrid clearfix">
+                 <% if (athletes.length > 0) { %>
+                 <% for (i=0; i< athletes.length; i++) { %>
+                  <img src="/images/athletes/<%= athletes[i] %>" alt="athletes <%= i %>">
+                  <% } %>
+                 <% } %>
+            </div>
+          </article>

@@ -1,0 +1,24 @@
+{
+  "speakers": [{
+    "title" : "Shark in the Tank",
+    "name": "Michael Phelps",
+    "shortname" : "Michael_Phelps",
+    "summary" : "Swimmer Michael Phelps has set the record for winning the most medals, 28, of any Olympic athlete in history.",
+    "description": "Born on June 30, 1985, in Baltimore, Maryland, Michael Phelps competed in his first Olympics at the age of 15, as part of the U.S. men's swim team. He went on to win medals at the Olympic Summer Games in Athens, Beijing, London and Rio, accumulating a total of 28 medals—23 gold, three silver and two bronze—and setting the record for the most medal wins by any Olympic athlete. Phelps announced his retirement in 2012, however, in April 2014, he announced he was coming out of retirement and would return to professional competition at the age of 28. In June 2016, he clinched his spot on the 2016 U.S. Olympic swim team, making him the first American male swimmer to earn a spot on five Olympic teams. At the 2016 Olympic Games, he won one silver and five gold medals, becoming the oldest individual gold medalist in Olympic swimming history, as well as the first swimmer to win four consecutive golds in the same event, the 200-meter individual medley.",
+    "athletes": ["Michael_Phelps_01_tn.jpg", "Michael_Phelps_02_tn.jpg", "Michael_Phelps_03_tn.jpg", "Michael_Phelps_04_tn.jpg","Michael_Phelps_05_tn.jpg","Michael_Phelps_06_tn.jpg"]
+  },{
+    "title" : "Team USA’s way to throne",
+    "name": "Kevin Durant",
+    "shortname" : "Kevin_Durant",
+    "summary": "Kevin Durant is a top-scoring American professional basketball player, who played for the National Basketball Association's Oklahoma City Thunder and signed with the Golden State Warriors in 2016.",
+    "description": "Born on September 29, 1988 in Suitland, Maryland, just outside of Washington, D.C., Kevin Wayne Durant is a high-profile professional basketball player. After playing college basketball for only one season at the University of Texas, Austin, he was chosen second overall in the first round of the 2007 NBA draft by the Seattle SuperSonics. Durant is a three-time NBA All-Star and three-time NBA scoring champion.Kevin Durant was born just outside of the nation's capital, in Suitland, Maryland, on September 29, 1988. As one of four children of Wanda and Wayne Pratt, Durant grew up loving sports with his sister, Brianna, and two brothers, Anthony (also a basketball player) and Rayvonne. His grandmother, Barbara, was a strong influence, telling him that his height was a blessing, even though schoolmates teased him for always being the tallest in class.",
+    "athletes" : ["Kevin_Durant_01_tn.jpg" , "Kevin_Durant_02_tn.jpg" , "Kevin_Durant_03_tn.jpg" , "Kevin_Durant_04_tn.jpg" , "Kevin_Durant_05_tn.jpg" , "Kevin_Durant_06_tn.jpg"]
+  },{
+    "title" : "King of the track",
+    "name": "Usain Bolt",
+    "shortname" : "Usian_Bolt",
+    "summary": "Jamaican sprinter Usain Bolt is arguably the fastest man in the world, winning three gold medals at the 2008 Olympic Games in Beijing, China, and becoming the first man in Olympic history to win both the 100-meter and 200-meter races in record times.",
+    "description": "Usain Bolt was born in Jamaica on August 21, 1986. Both a standout cricket player and a sprinter early on, Bolt's natural speed was noticed by coaches at school, and he began to focus solely on sprinting under the tutelage of Pablo McNeil, a former Olympic sprint athlete. (Glen Mills would later serve as Bolt's coach and mentor.) As early as age 14, Bolt was wowing fans of sprinting with his lightning speed, and he won his first high school championships medal in 2001, taking the silver in the 200-meter race. Bolt also won three Olympic gold medals at the 2012 Summer Olympic Games in London. He ran the men's 100-meter race in 9.63 seconds, a new Olympic record, making him the first man in history to set three world records in Olympic competition.",
+    "athletes" : ["Usian_Bolt_01_tn.jpg","Usian_Bolt_02_tn.jpg","Usian_Bolt_03_tn.jpg","Usian_Bolt_04_tn.jpg","Usian_Bolt_05_tn.jpg","Usian_Bolt_06_tn.jpg"]
+  }]
+}
