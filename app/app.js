@@ -13,6 +13,8 @@ app.use(require('./routes/index'));
 app.use(require('./routes/speakers'));
 app.use(require('./routes/feedback'));
 app.use(require('./routes/api'));
+app.use(require('./routes/search'));
+
 
 app.locals.siteTitle = 'Olympics Dataset';
 app.locals.allSpeakers = dataFile.speakers;
