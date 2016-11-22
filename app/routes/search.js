@@ -24,33 +24,49 @@ dict['France'] = 'FRA';
 dict['Lithuania'] = 'LTU';
 dict['Australia'] = 'AUS';
 dict['Brazil'] = 'BRA';
-
-// connection.connect();
-
-function query1(res){
+result1 = [];
+result2 = [];
+result3 = [];
+function query1(){
 	connection.query('select CName from Country where Num_Gold = (select max(Num_Gold) from Country)', function(err, rows, fields){
 		if(err) throw err;
 		else{
-	
-  		output_country(res, rows, dict);
-		console.log(dict[rows[0].CName]) 
+			var i;
+			for(i = 0; i < rows.length; i++){
+				result1.push(dict[rows[i].CName]);
+			}
 		}
 	});
 }
 
-function query2(res){
-	connection.query('select distinct c.CName from Country c inner join Organizer o on c.CName = o.CName where c.Num_Gold = (select max(c.Num_Gold) from Country c inner join Organizer o on c.CName = o.CName)'
-		, function(err, rows, fields){
-		if(err) throw err;
-		else{
+// function query2(){
+// 	var query2 = 'select distinct c.CName from Country c inner join Organizer o' + 
+// 	'on c.CName = o.CName where c.Num_Gold = (select max(c.Num_Gold)' + 
+// 	'from Country c inner join Organizer o on c.CName = o.CName);'
+// 	connection.query(query2, function(err, rows, fields){
+// 		if(err) throw err;
+// 		else{
+// 			var i;
+// 			for(i = 0; i < rows.length; i++){
+// 				result2.push(dict[rows[i].CName]);
+// 			}
+// 		}
+// 	});
+// }
+
+// function query2(res){
+// 	connection.query('select distinct c.CName from Country c inner join Organizer o on c.CName = o.CName where c.Num_Gold = (select max(c.Num_Gold) from Country c inner join Organizer o on c.CName = o.CName)'
+// 		, function(err, rows, fields){
+// 		if(err) throw err;
+// 		else{
 	
-  		output_country(res, rows, dict);
+//   		output_countryTwo(res, rows, dict);
 		
-		}
-	});
-}
+// 		}
+// 	});
+// }
 
-function query3(res){
+function query3(){
 	connection.query('select c.CName, count(distinct p.AName) as num from Country c inner join Bornin b on\
 	 b.NOC_code = c.NOC_code inner join Athlete a on a.AName = b.AName inner join\
 	  Participate p on a.AName = p.AName\
@@ -60,30 +76,25 @@ function query3(res){
 	, function(err, rows, fields){
 		if(err) throw err;
 		else{
-	
-  		output_country(res, rows, dict);
-		
+			var i;
+			for(i = 0; i < rows.length; i++){
+				result3.push(dict[rows[i].CName]);
+			}
 		}
 	});
 }
-function output_country(res, rows, dict){
-	var short_name, i;
-	short_name = [];
-	for(i = 0; i < rows.length; i++){
-		short_name.push(dict[rows[i].CName]);
-	}
+
+
+
+router.get('/search', function(req, res) {
+	query1();
+	query3();
 	res.render('search', {
   			pageTitle: 'Search',
   			pageID: 'Search',
-  			Country: short_name
+  			Country: result1,
+  			CountryThree: result3
   		});
-	// for(i = 0; i < short_name.length; i++){
-		console.log(rows.length);
-		console.log(short_name[0]);
-	// }
-}
-router.get('/search', function(req, res) {
-	query3(res);  
 });
 
 module.exports = router;
