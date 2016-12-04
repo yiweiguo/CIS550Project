@@ -1,53 +1,280 @@
 <html>
-  <head> <% include partials/template/head.ejs %> </head>
+  <head> <% include partials/template/head.ejs %>
+    <style>
+      .hoverinfo3{
+        color: #EC7063;
+        position; relative;
+        margin:1050px 0px 1158px;
+      }
+      .hoverinfo4{
+        color: #5B2C6F;
+        position; relative;
+        margin:1700px 0px 1158px;
+      }
+      .hoverinfo5{
+        color: #5B2C6F;
+        position; relative;
+        margin:2300px 0px 1158px; 
+      }
+    </style>
+  </head>
   <body id = "<%= pageID %>">
     <% include partials/template/header.ejs %>
-    <%include partials/template/jsdefault.ejs %>
+    <% include partials/template/jsdefault.ejs %>
     <p> Which country has the most gold medalist in the history?</p>
   <button onclick="my_query1()">Find out!</button>
+  <p> Which country has most gold medals among countries that have hosted Olympics?</p>
+  <button onclick="my_query2()">Find Out!</button>
   <div id="containerOne" style ="width: 100%; height:500px;"></div>
+  <script src="../js/components/d3/d3.min.js"></script>
+  <script src="../js/components/topojson/topojson.js"></script>
+  <script src="../../dist/datamaps.world.js"></script>
   <script>
   var mapOne = new Datamap({element: document.getElementById('containerOne'),
         fills: {
-              HIGH: '#afafaf',
-              LOW: '#123456',
-              MEDIUM: 'blue',
-              UNKNOWN: 'rgb(0,0,0)',
-              defaultFill: 'green'
-          }
+              USA: '#000079',
+              USA2: '#E74C3C',
+              defaultFill: '#F5F5F5'
+          },
+        geographyConfig: {
+            highlightOnHover: false,
+            popupOnHover: false
+        }
        });
   </script>
+  <br/>
+  <br/>
   <p> Rank the number of medalist of each country in a certain sport?</p>
   <button onclick="my_query3()">Find out!</button>
   <div id="containerTwo" style ="width: 100%; height:500px;"></div>
   <script>
+  var paletteScale = d3.scale.linear()
+          .domain([0,16])
+          .range(["#000079","#FDFFFF"]); // blue color
   var mapTwo = new Datamap({element: document.getElementById('containerTwo'),
-        fills: {
-              HIGH: '#afafaf',
-              LOW: '#123456',
-              MEDIUM: 'blue',
-              UNKNOWN: 'rgb(0,0,0)',
-              defaultFill: 'green'
-          }
-       });
+      fills: {
+        <% for(var i = 0; i < CountryThree.length; i++){ %>
+            <%= CountryThree[i] %>: paletteScale(<%= i %>),
+         <% } %>
+            defaultFill: '#F5F5F5'
+      },
+      // projection: 'mercator'.
+      data: {
+        <% for(var i = 0; i < CountryThree.length; i++){ %>
+            <%= CountryThree[i] %> : {
+              rank : <%= i %>,
+              fillColor : paletteScale(<%= i %>),
+              defaultFill: '#F5F5F5'
+            },
+       <% } %>
+      },
+      geographyConfig: {
+            borderColor: '#DEDEDE',
+            highlightBorderWidth: 2,
+            // don't change color on mouse hover
+            highlightFillColor: function(geo) {
+                return geo['fillColor'] || '#F5F5F5';
+            },
+            // only change border
+            highlightBorderColor: '#B7B7B7',
+            // show desired information in tooltip
+            popupTemplate: function(geo, data) {
+                // don't show tooltip if country don't present in dataset
+                // if (!data) { return ; }
+                // tooltip content
+                return [
+                    '<div class="hoverinfo3">',
+                    '<strong>', geo.properties.name, '</strong>',
+                    '<br>Rank: <strong>', data.rank + 1, '</strong>',
+                    '</div>'].join('');
+            }
+      }
+  });
+  <% for(var i = 0; i < CountryThree.length; i++){ %>
+         mapTwo.updateChoropleth({
+           <%= CountryThree[i] %>:{fillKey: 'defaultFill'}
+         });
+  <% } %>
+  </script>
+  <br/>
+  <br/>
+  <p> List names who have won at least three gold medals in 2008(including country)?</p>
+  <button onclick="my_query4()">Find Out!</button>
+  <div id="containerThree" style ="width: 100%; height:500px;"></div>
+  <script type="text/javascript">
+      var color_dict = {};
+      color_dict['USA'] = '#34495E';
+      color_dict['GBR'] = '#229954';
+      color_dict['JAM'] = '#6C3483';
+      color_dict['AUS'] = '#DC7633';
+      color_dict['CHN'] = '#E74C3C';  
+      var mapThree = new Datamap({element: document.getElementById('containerThree'),
+            fills: {
+              USA : '#34495E',
+              GBR : '#229954',
+              JAM : '#6C3483',
+              AUS : '#DC7633',
+              CHN : '#E74C3C',
+              defaultFill : '#F5F5F5'
+            },
+            data: {
+            <% for(var i = 0; i < CountryFour_Country.length; i++){ %>
+                <%= CountryFour_Country[i] %> : {
+                athlete : '<%= CountryFour_Person[i]%>',
+                fillColor : 'color_dict[<%= CountryFour_Country[i] %>]',
+                defaultFill: '#F5F5F5'
+                 },
+            <% } %>     
+            },
+            geographyConfig: {
+              borderColor: '#DEDEDE',
+              highlightBorderWidth: 2,
+              // don't change color on mouse hover
+              highlightFillColor: function(geo) {
+                  return geo['fillColor'] || '#F5F5F5';
+                  // return '#F5F5F5';
+              },
+              // only change border
+              highlightBorderColor: '#B7B7B7',
+              // show desired information in tooltip
+              popupTemplate: function(geo, data) {
+                  // don't show tooltip if country don't present in dataset
+                  if (!data) { return ; }
+                  // tooltip content
+                  return [
+                      '<div class="hoverinfo4">',
+                      '<strong>', data.athlete, '</strong>',
+                      '<br>Country: <strong>',geo.properties.name, '</strong>',
+                      '</div>'].join('');
+              }
+            }
+      });
+      <% for(var i = 0; i < CountryFour_Country.length; i++){ %>
+         mapThree.updateChoropleth({
+           <%= CountryFour_Country[i] %>:{fillKey: 'defaultFill'}
+         });
+      <% } %>
+  </script>
+  <br/>
+  <br/>
+  <p>List people who have ever won 100m and 200m Dash Gold in one Olympic Game.</p>
+  <button onclick="my_query5()">Find Out!</button>
+  <div id="containerFour" style ="width: 100%; height:500px;"></div>
+  <script type="text/javascript">
+      var mapFour = new Datamap({element: document.getElementById('containerFour'),
+            fills: {
+              USA : '#34495E',
+              NLD : '#229954',
+              JAM : '#6C3483',
+              AUS : '#DC7633',
+              CAN : '#E74C3C',
+              defaultFill : '#F5F5F5'
+            },
+            data: {
+              USA : {
+                athlete : '1.CRAIG Ralph\n2.GRIFFITH-JOYNER Florence\n\
+                3.HAHN Archie\n4.LEWIS Carl\n5.MORROW Robert Joseph\n\
+                6.OWENS Jesse\n7.RUDOLPH Wilma\n8.TOLAN Eddie',
+                fillColor : '#34495E'
+              },
+              NLD : {
+                athlete : 'BLANKERS-KOEN Fanny',
+                fillColor : '#229954'
+              },
+              JAM : {
+                athlete : 'BOLT Usain',
+                fillColor : '#6C3483'
+              },
+              AUS : {
+                athlete : 'JACKSON Marjorie',
+                fillColor : '#DC7633'
+
+              },
+              CAN : {
+                athlete : 'WILLIAMS Percy',
+                fillColor : '#E74C3C'
+              }
+            },
+            geographyConfig: {
+              borderColor: '#DEDEDE',
+              highlightBorderWidth: 2,
+              // don't change color on mouse hover
+              highlightFillColor: function(geo) {
+                  return geo['fillColor'] || '#F5F5F5';
+                  // return '#F5F5F5';
+              },
+              // only change border
+              highlightBorderColor: '#B7B7B7',
+              // show desired information in tooltip
+              popupTemplate: function(geo, data) {
+                  // don't show tooltip if country don't present in dataset
+                  if (!data) { return ; }
+                  // tooltip content
+                  return [
+                      '<div class="hoverinfo5">',
+                      '<strong>', data.athlete, '</strong>',
+                      '<br>Country: <strong>',geo.properties.name, '</strong>',
+                      '</div>'].join('');
+              }
+            }
+      });
+      <% for(var i = 0; i < CountryFive_Country.length; i++){ %>
+         mapFour.updateChoropleth({
+           <%= CountryFive_Country[i] %>:{fillKey: 'defaultFill'}
+         });
+      <% } %>
   </script>
   <script> //src = "/routes/search.js" type = "text/javascript">
     function my_query1(){
         <% for(var i = 0; i < Country.length; i++){ %>
          mapOne.updateChoropleth({
-           <%= Country[i] %>:{fillKey: 'MEDIUM'}
+           <%= Country[i] %>:{fillKey: 'USA'}
          });
        <% } %>
+       mapOne.legend();
+
      }
   </script>
+  <script type="text/javascript">
+    function my_query2(){
+        <% for(var i = 0; i < CountryTwo.length; i++){ %>
+         mapOne.updateChoropleth({
+           <%= CountryTwo[i] %>:{fillKey: 'USA2'}
+         });
+       <% } %>
+       mapOne.legend(); 
+    } 
+  </script>>
   <script> //src = "/routes/search.js" type = "text/javascript">
+  var paletteScale = d3.scale.linear()
+          .domain([0,16])
+          .range(["#000079","#FDFFFF"]); // blue color
     function my_query3(){
         <% for(var i = 0; i < CountryThree.length; i++){ %>
          mapTwo.updateChoropleth({
-           <%= CountryThree[i] %>:{fillKey: 'High'}
+           <%= CountryThree[i] %>:{fillKey: '<%= CountryThree[i] %>'}
          });
        <% } %>
+       mapTwo.legend();
      }
+  </script>
+  <script type="text/javascript">
+    function my_query4(){
+      <% for(var i = 0; i < CountryFour_Country.length; i++){ %>
+         mapThree.updateChoropleth({
+           <%= CountryFour_Country[i] %>:{fillKey: '<%= CountryFour_Country[i] %>'}
+         });
+      <% } %>
+    }
+  </script>
+  <script type="text/javascript">
+      function my_query5(){
+        <% for(var i = 0; i < CountryFive_Country.length; i++){ %>
+         mapFour.updateChoropleth({
+           <%= CountryFive_Country[i] %>:{fillKey: '<%= CountryFive_Country[i] %>'}
+         });
+      <% } %>  
+      }
   </script>
   </body>
 </html>

@@ -6,9 +6,9 @@ var dataFile = require('./data/data.json');
 app.set('port', process.env.PORT || 3000);
 app.set('appData', dataFile);
 app.set('view engine', 'ejs');
-app.set('views', 'app/views');
+app.set('views', __dirname + '/views');
 //directly accessible in public folder
-app.use(express.static('app/public'));
+app.use(express.static(__dirname + '/public'));
 app.use(require('./routes/index'));
 app.use(require('./routes/speakers'));
 app.use(require('./routes/feedback'));
