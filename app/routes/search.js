@@ -27,6 +27,18 @@ dict['Brazil'] = 'BRA';
 dict['Jamaica'] = 'JAM';
 dict['United Kingdom'] = 'GBR';
 dict['Netherlands'] = 'NLD';
+dict['Ethiopia'] = 'ETH';
+dict['Germany'] = 'GER';
+dict['Zimbabwe'] = 'ZIM';
+dict['Hungary'] = 'HUN';
+dict['Czech Republic'] = 'CZE';
+dict['Japan'] = 'JPN';
+dict['Kenya'] = 'KEN';
+dict['Belarus'] = 'BLR';
+dict['Slovakia'] = 'SVK';
+dict['Greece'] = 'GRE';
+dict['Ukraine'] = 'UKR';
+dict['Slovenia'] = 'SVN'
 
 result1 = [];
 result2 = [];
@@ -35,6 +47,8 @@ result4_country = [];
 result4_person = [];
 result5_country = [];
 result5_person = [];
+result6_country = [];
+result6_person = [];
 function query1(){
 	connection.query('select CName from Country where Num_Gold = (select max(Num_Gold) from Country)', function(err, rows, fields){
 		if(err) throw err;
@@ -116,12 +130,38 @@ function query5(){
 	);
 }
 
+function query6(){
+	connection.query('select b.AName, c.CName from (select p.AName as AName, p.Discipline as \
+		Discipline, sum(case when p.Medal = "Bronze" then 1 when p.Medal = "Silver" then 2 else 3\
+		end) as num\
+		from Participate p\
+		where p.Edition = 2008\
+		group by p.AName) b inner join (select p.AName as AName, p.Discipline as Discipline,\
+		sum(case when p.Medal = "Bronze" then 1 when p.Medal = "Silver" then 2 else 3 end)\
+		as num\
+		from Participate p\
+		where p.Edition = 2004\
+		group by p.AName) a on b.AName = a.AName and b.Discipline = a.Discipline\
+		Inner join Bornin z on z.AName = a.AName inner join Country c on z.NOC_code =\
+		c.NOC_code \
+		where b.num > a.num;', function(err, rows, fields){
+			if(err) throw err;
+				else{
+					for(var i = 0; i < rows.length; i++){
+					result6_country.push(dict[rows[i].CName]);
+					result6_person.push(rows[i].AName);
+					}	
+				}
+		}
+	);
+}
 router.get('/search', function(req, res) {
 	query1();
 	query2();
 	query3();
 	query4();
 	query5();
+	query6();
 	res.render('search', {
   			pageTitle: 'Search',
   			pageID: 'Search',
@@ -131,7 +171,9 @@ router.get('/search', function(req, res) {
   			CountryFour_Country: result4_country,
   			CountryFour_Person: result4_person,
   			CountryFive_Country: result5_country,
-  			CountryFive_Person : result5_person
+  			CountryFive_Person : result5_person,
+  			CountrySix_Country: result6_country,
+  			CountrySix_Person: result6_person
   		});
 });
 

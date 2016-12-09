@@ -4,28 +4,46 @@
       .hoverinfo3{
         color: #EC7063;
         position; relative;
-        margin:1050px 0px 1158px;
+        margin:1400px 0px 1158px;
       }
       .hoverinfo4{
         color: #5B2C6F;
         position; relative;
-        margin:1700px 0px 1158px;
+        margin:2300px 0px 1158px;
       }
       .hoverinfo5{
         color: #5B2C6F;
         position; relative;
-        margin:2300px 0px 1158px; 
+        margin:3200px 0px 1158px; 
+      }
+     .hoverinfo6{
+      color: #5B2C6F;
+      position; relative;
+      margin:4100px 0px 1158px; 
+      }
+      .hoverinfo7{
+      color: #5B2C6F;
+      position; relative;
+      margin:629px 0px 1158px; 
       }
     </style>
   </head>
   <body id = "<%= pageID %>">
     <% include partials/template/header.ejs %>
     <% include partials/template/jsdefault.ejs %>
-    <p> Which country has the most gold medalist in the history?</p>
+  <div style=" background-image:url(http://patriotden.com/fotki/olympics/Olympic-Rings-soft.jpg); background-repeat:repeat-y; background-size: 100%">
+  <p> Which country has the most gold medalist in the history?</p>
   <button onclick="my_query1()">Find out!</button>
   <p> Which country has most gold medals among countries that have hosted Olympics?</p>
   <button onclick="my_query2()">Find Out!</button>
-  <div id="containerOne" style ="width: 100%; height:500px;"></div>
+  <p>Show each one of the organizer of Olympics from  in recent twenty years</p>
+  <button onclick="my_query7()">1988</button>
+  <button onclick="my_query8()">1992</button>
+  <button onclick="my_query9()">1996</button>
+  <button onclick="my_query10()">2000</button>
+  <button onclick="my_query11()">2004</button>
+  <button onclick="my_query12()">2008</button>
+  <div id="containerOne" style ="width: 100%; height:800px;"></div>
   <script src="../js/components/d3/d3.min.js"></script>
   <script src="../js/components/topojson/topojson.js"></script>
   <script src="../../dist/datamaps.world.js"></script>
@@ -33,28 +51,85 @@
   var mapOne = new Datamap({element: document.getElementById('containerOne'),
         fills: {
               USA: '#000079',
-              USA2: '#E74C3C',
+              KOR: '#A04000',
+              ESP: '#1D8348',
+              AUS: '#4A235A',
+              GRC: '#1B4F72',
+              CHN: '#1B2631',
               defaultFill: '#F5F5F5'
-          },
+        },
+        data:{
+              USA: {
+                fillColor : '#000079',
+                countryname: 'United States'
+              },
+              KOR: {
+                fillColor : '#A04000',
+                countryname: 'South Korea'
+              },
+              ESP: {
+                fillColor : '#1D8348',
+                countryname: 'Spain'
+              },
+              AUS: {
+                fillColor : '#4A235A',
+                countryname: 'Australia'
+              },
+              GRC: {
+                fillColor : '#1B4F72',
+                countryname: 'Greece'
+              },
+              CHN: {
+                fillColor : '#1B2631',
+                countryname: 'China'
+              }
+        },
         geographyConfig: {
-            highlightOnHover: false,
-            popupOnHover: false
+            highlightFillColor: function(geo) {
+                return geo['fillColor'] || '#F5F5F5';
+            },
+            popupTemplate: function(geo, data) {
+              // don't show tooltip if country don't present in dataset
+              if (!data) { return ; }
+              // tooltip content
+              return [
+                  '<div class="hoverinfo7">',
+                  '<strong>', data.countryname, '</strong>',
+                  '</div>'].join('');
+            }
         }
-       });
+  });
+    mapOne.updateChoropleth({
+           KOR:{fillKey: 'defaultFill'},
+           ESP:{fillKey: 'defaultFill'},
+           USA:{fillKey: 'defaultFill'},
+           AUS:{fillKey: 'defaultFill'},
+           GRC:{fillKey: 'defaultFill'},
+           CHN:{fillKey: 'defaultFill'}
+    });
   </script>
   <br/>
   <br/>
   <p> Rank the number of medalist of each country in a certain sport?</p>
   <button onclick="my_query3()">Find out!</button>
-  <div id="containerTwo" style ="width: 100%; height:500px;"></div>
+  <div id="containerTwo" style ="width: 100%; height:800px;"></div>
   <script>
+  function getRandomColor() { 
+        var c = '#'; 
+        var cArray = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']; 
+        for(var i = 0; i < 6;i++) { 
+            var cIndex = Math.round(Math.random()*15); 
+            c += cArray[cIndex]; 
+        } 
+        return c; 
+    }
   var paletteScale = d3.scale.linear()
           .domain([0,16])
-          .range(["#000079","#FDFFFF"]); // blue color
+          .range(["#FDEDEC","#78281F"]); // blue color
   var mapTwo = new Datamap({element: document.getElementById('containerTwo'),
       fills: {
         <% for(var i = 0; i < CountryThree.length; i++){ %>
-            <%= CountryThree[i] %>: paletteScale(<%= i %>),
+            <%= CountryThree[i] %>: getRandomColor(),
          <% } %>
             defaultFill: '#F5F5F5'
       },
@@ -63,7 +138,7 @@
         <% for(var i = 0; i < CountryThree.length; i++){ %>
             <%= CountryThree[i] %> : {
               rank : <%= i %>,
-              fillColor : paletteScale(<%= i %>),
+              fillColor : '#F5F5F5',
               defaultFill: '#F5F5F5'
             },
        <% } %>
@@ -100,7 +175,7 @@
   <br/>
   <p> List names who have won at least three gold medals in 2008(including country)?</p>
   <button onclick="my_query4()">Find Out!</button>
-  <div id="containerThree" style ="width: 100%; height:500px;"></div>
+  <div id="containerThree" style ="width: 100%; height:800px;"></div>
   <script type="text/javascript">
       var color_dict = {};
       color_dict['USA'] = '#34495E';
@@ -159,7 +234,7 @@
   <br/>
   <p>List people who have ever won 100m and 200m Dash Gold in one Olympic Game.</p>
   <button onclick="my_query5()">Find Out!</button>
-  <div id="containerFour" style ="width: 100%; height:500px;"></div>
+  <div id="containerFour" style ="width: 100%; height:800px;"></div>
   <script type="text/javascript">
       var mapFour = new Datamap({element: document.getElementById('containerFour'),
             fills: {
@@ -224,22 +299,132 @@
          });
       <% } %>
   </script>
+  <p>List athletes who have improved performance from 2004 to 2008. (We count gold as 3 points, silver as 2 points, bronze as 1 point, aggregate number of points indicate his/her performance)</p>
+  <button onclick="my_query6()">Find Out!</button>
+  <div id="containerFive" style ="width: 100%; height:800px;"></div>
+  <script type="text/javascript">
+    function getRandomColor() { 
+        var c = '#'; 
+        var cArray = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']; 
+        for(var i = 0; i < 6;i++) { 
+            var cIndex = Math.round(Math.random()*15); 
+            c += cArray[cIndex]; 
+        } 
+        return c; 
+    } 
+    var mapFive = new Datamap({element: document.getElementById('containerFive'),
+        fills: {
+          <% for(var i = 0; i < CountrySix_Country.length; i++){ %>
+              <%= CountrySix_Country[i] %>: getRandomColor(),
+          <% } %>
+          defaultFill: '#F5F5F5'
+        },
+        data: {
+        <% for(var i = 0; i < CountrySix_Country.length; i++){ %>
+            <%= CountrySix_Country[i] %> : {
+              athlete : '<%= CountrySix_Person[i]%>',
+              defaultFill: '#F5F5F5'
+            },
+       <% } %>
+        },
+        geographyConfig: {
+              borderColor: '#DEDEDE',
+              highlightBorderWidth: 2,
+              // don't change color on mouse hover
+              // highlightFillColor: function(geo) {
+              //     return geo['fillColor'] || '#F5F5F5';
+              //     // return '#F5F5F5';
+              // },
+              // only change border
+              highlightBorderColor: '#B7B7B7',
+              // show desired information in tooltip
+              popupTemplate: function(geo, data) {
+                  // don't show tooltip if country don't present in dataset
+                  if (!data) { return ; }
+                  // tooltip content
+                  return [
+                      '<div class="hoverinfo6">',
+                      '<strong>', data.athlete, '</strong>',
+                      '<br>Country: <strong>',geo.properties.name, '</strong>',
+                      '</div>'].join('');
+              }
+        }
+    });
+    // <% for(var i = 0; i < CountrySix_Country.length; i++){ %>
+    //      mapFiveddupdateChoropleth({
+    //        <%= CountrySix_Country[i] %>:{fillKey: 'defaultFill'}
+    //      });
+    // <% } %>
+
+  </script>
   <script> //src = "/routes/search.js" type = "text/javascript">
+    function clear(){
+      mapOne.updateChoropleth({
+           KOR:{fillKey: 'defaultFill'},
+           ESP:{fillKey: 'defaultFill'},
+           USA:{fillKey: 'defaultFill'},
+           AUS:{fillKey: 'defaultFill'},
+           GRC:{fillKey: 'defaultFill'},
+           CHN:{fillKey: 'defaultFill'}
+       });
+    }
     function my_query1(){
+        clear();
         <% for(var i = 0; i < Country.length; i++){ %>
          mapOne.updateChoropleth({
            <%= Country[i] %>:{fillKey: 'USA'}
          });
        <% } %>
-       mapOne.legend();
-
-     }
+       // mapOne.legend();
+    }
+    function my_query7(){
+        clear();
+        mapOne.updateChoropleth({
+           KOR:{fillKey: 'KOR'}
+        });
+       // mapOne.legend();
+    }
+    function my_query8(){
+        clear();
+         mapOne.updateChoropleth({
+           ESP:{fillKey: 'ESP'}
+         });
+       // mapOne.legend();
+    }
+    function my_query9(){
+        clear();
+         mapOne.updateChoropleth({
+           USA:{fillKey: 'USA'}
+         });
+       // mapOne.legend();
+    }
+    function my_query10(){
+      clear();
+         mapOne.updateChoropleth({
+           AUS:{fillKey: 'AUS'}
+         });
+       // mapOne.legend();
+    }
+    function my_query11(){
+      clear();
+         mapOne.updateChoropleth({
+           GRC:{fillKey: 'GRC'}
+         });
+       // mapOne.legend();
+    }
+    function my_query12(){
+      clear();
+         mapOne.updateChoropleth({
+           CHN:{fillKey: 'CHN'}
+         });
+       // mapOne.legend();
+    }
   </script>
   <script type="text/javascript">
     function my_query2(){
         <% for(var i = 0; i < CountryTwo.length; i++){ %>
          mapOne.updateChoropleth({
-           <%= CountryTwo[i] %>:{fillKey: 'USA2'}
+           <%= CountryTwo[i] %>:{fillKey: 'USA'}
          });
        <% } %>
        mapOne.legend(); 
@@ -276,5 +461,15 @@
       <% } %>  
       }
   </script>
+  <script type="text/javascript">
+      function my_query6(){
+        <% for(var i = 0; i < CountrySix_Country.length; i++){ %>
+         mapFive.updateChoropleth({
+           <%= CountrySix_Country[i] %>:{fillKey: '<%= CountrySix_Country[i] %>'}
+         });
+        <% } %>  
+      }
+  </script>
+  </div>
   </body>
 </html>
