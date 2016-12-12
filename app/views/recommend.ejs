@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head> <% include partials/template/head.ejs %> </head>
+  <style>
+    /* Dropdown Button */
+.dropbtn1 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 30px 100px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    /*margin: 50px 91px;*/
+    top:50px;
+    left:100px;
+}
+
+.dropbtn2 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 30px 100px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    /*margin: 50px 91px;*/
+    top:50px;
+    left:400px;
+}
+
+.dropbtn3 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 30px 100px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    /*margin: 50px 91px;*/
+    top:50px;
+    left:700px;
+}
+
+.dropbtn4 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 30px 100px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    /*margin: 50px 91px;*/
+    top:700px;
+    left:400px;
+}
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content1 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top:130px;
+    left:100px;
+}
+
+.dropdown-content2 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top:130px;
+    left:400px;
+}
+
+.dropdown-content3 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top:130px;
+    left:700px;
+}
+/* Links inside the dropdown */
+.dropdown-content1 a {
+    color: black;
+    padding: 30px 80px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content2 a {
+    color: black;
+    padding: 30px 80px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content3 a {
+    color: black;
+    padding: 30px 80px;
+    text-decoration: none;
+    display: block;
+}
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+  </style>
+  <body>
+    <% include partials/template/header.ejs %>
+    <%= Country[18] %>
+    <div class="dropdown">
+      <button onclick="myFunction1()" class="dropbtn1">City</button>
+      <div id="myDropdown1" class="dropdown-content1">
+        <a href= "#" onclick="myCity1()">Las Vegas</a>
+        <a href="#" onclick="myCity2()">Phoenix</a>
+        <a href="#" onclick="myCity3()">Charlotte</a>
+        <a href="#" onclick="myCity4()">Pittsburgh</a>
+        <a href="#" onclick="myCity5()">Scottsdale</a>
+      </div>
+      <button onclick="myFunction2()" class="dropbtn2">Category</button>
+      <div id="myDropdown2" class="dropdown-content2">
+        <a href= "#" onclick="myCat1()">Restaurants</a>
+        <a href="#" onclick="myCat2()">Sports Bars</a>
+      </div>
+      <button onclick="myFunction3()" class="dropbtn3">CreditCard</button>
+      <div id="myDropdown3" class="dropdown-content3">
+        <a href= "#" onclick="myCre1()">Yes</a>
+        <a href="#" onclick="myCre2()">No</a>
+      </div>
+      <button onclick="getResult()" class="dropbtn4">Get Result</button>
+      <div id = "result"></div>
+    <script type="text/javascript">
+      var city = null;
+      var Category = null;
+      var acceptCre = null;
+      function myCity1(){
+        city = "Las Vegas";
+        window.alert(city);
+        
+      }
+      function myCity2(){
+        city = "Phoenix";
+        window.alert(city);
+      }
+
+      function myCity3(){
+        city = "Charlotte";
+        window.alert(city);
+      }
+
+      function myCity4(){
+        city = "Pittsburgh";
+        window.alert(city);
+      }
+
+      function myCity5(){
+        city = "Scottsdale";
+        window.alert(city);
+      }
+
+      function myCat1(){
+        Category = "Restaurants";
+      }
+
+      function myCat2(){
+        Category = "Sports Bars";
+      }
+
+      function myCre1(){
+        acceptCre = "Yes";
+      }
+
+      function myCre2(){
+        acceptCre = "No";
+      } 
+
+      function getResult(){
+        var index = 0;
+        window.alert(map.length);
+        if(city == "Las Vegas"){
+          index = 0;
+        }else if(city == "Phoenix"){
+          index = 4;
+        }else if(city == "Charlotte"){
+          index = 8;
+        }else if(city == "Pittsburgh"){
+          index = 12;
+        }else if(city == "Scottsdale"){
+          index = 16;
+        }
+        if(Category == "Sports Bars"){
+          index += 2;
+        }
+        if(acceptCre == 'No'){
+          index += 1;
+        }
+        // var contents = map[index];
+        // document.getElementById("result").innerHTML = contents;
+      }     
+
+
+    </script>
+      <script type="text/javascript">
+                      /* When the user clicks on the button, 
+            toggle between hiding and showing the dropdown content */
+            function myFunction1() {
+                
+                document.getElementById("myDropdown1").classList.toggle("show");
+            }
+
+            function myFunction2() {
+                
+                document.getElementById("myDropdown2").classList.toggle("show");
+            }
+
+            function myFunction3() {
+                
+                document.getElementById("myDropdown3").classList.toggle("show");
+            }
+      </script>
+    </div>
+  </body>
+</html>
