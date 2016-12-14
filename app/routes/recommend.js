@@ -27,7 +27,7 @@ var url = 'mongodb://localhost:27017/yelp';
 // var dict5_b = {};
 // var dict5_c1 = {};
 // var dict5_c2 = {};
-res = [];
+rest = [];
 
 function query1(){
 		MongoClient.connect(url, function(err, db){
@@ -42,12 +42,9 @@ function query1(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[0] = "empty";
-					}else{
-						res[0] = result[0];
-					}
-					console.log(res[0], "1");
+						rest[0] = result[0];
+					
+					console.log(rest[0], "1");
 				}
 			});
 		});
@@ -66,12 +63,9 @@ function query2(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[0] = "empty";
-					}else{
-						res[1] = result[0];
-					}
-					console.log(res[1], "2");
+						rest[1] = result[0];
+					
+					console.log(rest[1], "2");
 				}
 			});
 		});
@@ -90,12 +84,9 @@ function query3(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[2] = "empty";
-					}else{
-						res[2] = result[0];
-					}
-						console.log(res[2], "3");
+						rest[2] = result[0];
+					
+						console.log(rest[2], "3");
 				}
 			});
 		});
@@ -114,12 +105,9 @@ function query4(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[3] = "empty";
-					}else{
-						res[3] = result[0];
-					}
-					console.log(res[3], "4");
+						rest[3] = result[0];
+					
+					console.log(rest[3], "4");
 				}
 			});
 		});
@@ -138,12 +126,8 @@ function query5(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[4] = "empty";
-					}else{
-						res[4] = result[0];
-					}
-					console.log(res[4], "5");
+						rest[4] = result[0];
+					console.log(rest[4], "5");
 				}
 			});
 		});
@@ -162,12 +146,8 @@ function query6(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[5] = "empty";
-					}else{
-						res[5] = result[0];
-					}
-					console.log(res[5], "6");
+						rest[5] = result[0];
+					console.log(rest[5], "6");
 				}
 			});
 		});
@@ -186,12 +166,8 @@ function query7(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[6] = "empty";
-					}else{
-						res[6] = result[0];
-					}
-					console.log(res[6], "7");
+						rest[6] = result[0];
+					console.log(rest[6], "7");
 				}
 			});
 		});
@@ -206,16 +182,13 @@ function query8(){
 			}	
 
 			var collection = db.collection('business');
-			collection.find({"categories":{$all:["Sports Bars"]},"city":"Phoenix","attributes.Accepts Credit Cards":false},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
+			collection.find({"categories":{$all:["Sports Bars"]},"city":"Phoenix","attributes.Accepts Credit Cards":true},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[7] = query19();
-					}else{
-						res[7] = result[0];
-					}
-					console.log(res[7], "8");
+						rest[7] = result[0];
+					
+					console.log(rest[7], "8");
 				}
 			});
 		});
@@ -234,12 +207,8 @@ function query9(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[8] = "empty";
-					}else{
-						res[8] = result[0];
-					}
-					console.log(res[8], "9");
+						rest[8] = result[0];
+					console.log(rest[8], "9");
 				}
 			});
 		});
@@ -258,12 +227,9 @@ function query10(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[9] = "empty";
-					}else{
-						res[9] = result[0];
-					}
-					console.log(res[9], "10");
+						rest[9] = result[0];
+					
+					console.log(rest[9], "10");
 				}
 			});
 		});
@@ -282,12 +248,8 @@ function query11(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[10] = "empty";
-					}else{
-						res[10] = result[0];
-					}
-					console.log(res[10], "11");
+						rest[10] = result[0];
+					console.log(rest[10], "11");
 				}
 			});
 		});
@@ -302,16 +264,12 @@ function query12(){
 			}	
 
 			var collection = db.collection('business');
-			collection.find({"categories":{$all:["Sports Bars"]},"city":"Charlotte","attributes.Accepts Credit Cards":false},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
+			collection.find({"categories":{$all:["Sports Bars"]},"city":"Charlotte","attributes.Accepts Credit Cards":true},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[11] = "empty";
-					}else{
-						res[11] = result[0];
-					}
-					console.log(res[11], "12");
+						rest[11] = result[0];
+					console.log(rest[11], "12");
 				}
 			});
 		});
@@ -330,12 +288,8 @@ function query13(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[12] = "empty";
-					}else{
-						res[12] = result[0];
-					}
-					console.log(res[12], "13");
+						rest[12] = result[0];
+					console.log(rest[12], "13");
 				}
 			});
 		});
@@ -354,12 +308,8 @@ function query14(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[13] = "empty";
-					}else{
-						res[13] = result[0];
-					}
-					console.log(res[13], "14");
+						rest[13] = result[0];
+					console.log(rest[13], "14");
 				}
 			});
 		});
@@ -378,11 +328,7 @@ function query15(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[14] = "empty";
-					}else{
-						res[14] = result[0];
-					}
+						rest[14] = result[0];
 				}
 			});
 		});
@@ -397,15 +343,11 @@ function query16(){
 			}	
 
 			var collection = db.collection('business');
-			collection.find({"categories":{$all:["Sports Bars"]},"city":"Pittsburgh","attributes.Accepts Credit Cards":false},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
+			collection.find({"categories":{$all:["Sports Bars"]},"city":"Pittsburgh","attributes.Accepts Credit Cards":true},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[15] = "empty";
-					}else{
-						res[15] = result[0];
-					}
+						rest[15] = result[0];
 				}
 			});
 		});
@@ -424,11 +366,7 @@ function query17(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-						res[16] = "empty";
-					}else{
-						res[16] = result[0];
-					}
+						rest[16] = result[0];
 				}
 			});
 		});
@@ -447,12 +385,7 @@ function query18(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-					// console.log(result.length);
-						res[17] = "empty";
-					}else{
-						res[17] = result[0];
-					}
+						rest[17] = result[0];
 				}
 			});
 		});
@@ -471,13 +404,8 @@ function query19(){
 				if(err){
 					console.log(err);
 				}else{
-					if(!result){
-					// console.log(result.length);
-						res[18] = "empty";
-					}else{
-						res[18] = result[0];
-						return result[0];
-					}
+						rest[18] = result[0];
+					
 				}
 			});
 		});
@@ -492,7 +420,7 @@ function query20(){
 			}	
 
 			var collection = db.collection('business');
-			collection.find({"city" : "Phoenix"}).toArray(function (err, result){
+			collection.find({"categories":{$all:["Sports Bars"]},"city":"Scottsdale","attributes.Accepts Credit Cards":true},{"_id":0,"name":1,"full_address":1}).toArray(function (err, result){
 				if(err){
 					console.log(err);
 				}else{
@@ -500,12 +428,8 @@ function query20(){
 					// dict5_b['Restaurants'] = result[0];
 					// dict5_b['Sports Bars'] = result[0];
 					// dict1_a['Scottsdale'] = result[0];
-					if(!result){
-					// console.log(result.length);
-					res[19] = "empty";
-					}else{
-						res[19] = result[0];
-					}
+						rest[19] = result[0];
+					
 				}
 			});
 		});
@@ -531,13 +455,11 @@ router.get('/recommend', function(req, res) {
 	query18();
 	query19();
 	query20();
-	// for(var i = 0; i < res.length; i++){
-		console.log(res.length);
-	// }
+	console.log("ppppppppp", rest.length);
   res.render('recommend', {
     pageTitle: 'recommend',
     pageID: 'RestaurantRecommend',
-    Country: res
+    Country: rest
   });
 });
 

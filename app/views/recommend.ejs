@@ -95,6 +95,14 @@
     top:130px;
     left:700px;
 }
+
+.abc {
+    background-color: #4CAF50;
+    font: 50px arial, sans-serif;
+    position: absolute;
+    top:500px;
+    left:500px; 
+}
 /* Links inside the dropdown */
 .dropdown-content1 a {
     color: black;
@@ -116,6 +124,8 @@
     text-decoration: none;
     display: block;
 }
+
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
 
@@ -125,7 +135,6 @@
   </style>
   <body>
     <% include partials/template/header.ejs %>
-    <%= Country[18] %>
     <div class="dropdown">
       <button onclick="myFunction1()" class="dropbtn1">City</button>
       <div id="myDropdown1" class="dropdown-content1">
@@ -146,34 +155,37 @@
         <a href="#" onclick="myCre2()">No</a>
       </div>
       <button onclick="getResult()" class="dropbtn4">Get Result</button>
-      <div id = "result"></div>
+      <div class = "container" style = "background-image:url(http://patriotden.com/fotki/olympics/Olympic-Rings-soft.jpg); background-repeat:repeat-y; background-size: 100%">
+        <div id = "result" class = "abc"></div>
+      </div>
     <script type="text/javascript">
       var city = null;
       var Category = null;
       var acceptCre = null;
+      var index = 0;
       function myCity1(){
         city = "Las Vegas";
-        window.alert(city);
+        // window.alert(city);
         
       }
       function myCity2(){
         city = "Phoenix";
-        window.alert(city);
+        // window.alert(city);
       }
 
       function myCity3(){
         city = "Charlotte";
-        window.alert(city);
+        // window.alert(city);
       }
 
       function myCity4(){
         city = "Pittsburgh";
-        window.alert(city);
+        // window.alert(city);
       }
 
       function myCity5(){
         city = "Scottsdale";
-        window.alert(city);
+        // window.alert(city);
       }
 
       function myCat1(){
@@ -190,31 +202,52 @@
 
       function myCre2(){
         acceptCre = "No";
-      } 
+      }
 
       function getResult(){
-        var index = 0;
-        window.alert(map.length);
+        var dict = [];
+        dict[0] = "<%=Country[0].name%>";
+        dict[1] = "<%=Country[1].name%>";
+        dict[2] = "<%=Country[2].name%>";
+        dict[3] = "<%=Country[3].name%>";
+        dict[4] = "<%=Country[4].name%>";
+        dict[5] = "<%=Country[5].name%>";
+        dict[6] = "<%=Country[6].name%>";
+        dict[7] = "<%=Country[7].name%>";
+        dict[8] = "<%=Country[8].name%>";
+        dict[9] = "<%=Country[9].name%>";
+        dict[10] = "<%=Country[10].name%>";
+        dict[11] = "<%=Country[11].name%>";
+        dict[12] = "<%=Country[12].name%>";
+        dict[13] = "<%=Country[13].name%>";
+        dict[14] = "<%=Country[14].name%>";
+        dict[15] = "<%=Country[15].name%>";
+        dict[16] = "<%=Country[16].name%>";
+        dict[17] = "<%=Country[17].name%>";
+        dict[18] = "<%=Country[18].name%>";
+        dict[19] = "<%=Country[19].name%>";
         if(city == "Las Vegas"){
-          index = 0;
+          index = 0; 
         }else if(city == "Phoenix"){
           index = 4;
         }else if(city == "Charlotte"){
           index = 8;
         }else if(city == "Pittsburgh"){
-          index = 12;
+          index = 12; 
         }else if(city == "Scottsdale"){
-          index = 16;
+          index = 16; 
         }
         if(Category == "Sports Bars"){
-          index += 2;
+          index += 2; 
         }
         if(acceptCre == 'No'){
-          index += 1;
+          index += 1; 
         }
-        // var contents = map[index];
-        // document.getElementById("result").innerHTML = contents;
-      }     
+        // window.alert(index);
+        // var newElem = Country[index].name;
+        document.getElementById("result").innerHTML = dict[index];
+      }
+           
 
 
     </script>
